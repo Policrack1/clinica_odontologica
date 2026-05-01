@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nueva Sonrisa — Sistema de Gestión Odontológica</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"/>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css"/>
+  <link rel="stylesheet" href="css/layout.css"/>
+  <link rel="stylesheet" href="css/components.css"/>
+  <link rel="stylesheet" href="css/sections.css"/>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     LOGIN
+══════════════════════════════════════ -->
+<div id="pg-login">
+
+  <!-- Left panel: brand -->
+  <div class="ll">
+    <div class="ll-bg"></div>
+    <div class="ll-ov"></div>
+    <div class="ll-brand">
+      <div class="ll-bi">🦷</div>
+      <span class="ll-bn">Nueva Sonrisa</span>
+    </div>
+    <div class="ll-txt">
+      <h1>Bienvenido a<br/>Nueva Sonrisa</h1>
+      <p>Sistema integral de gestión odontológica. Administra citas, pacientes y más desde un solo lugar.</p>
+      <div class="ll-stats">
+        <div class="ll-stat"><div class="n">20+</div><div class="l">Pacientes</div></div>
+        <div class="ll-stat"><div class="n">4</div><div class="l">Odontólogos</div></div>
+        <div class="ll-stat"><div class="n">94%</div><div class="l">Satisfacción</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right panel: form -->
+  <div class="lr">
+    <div class="lb">
+      <div class="lb-logo">
+        <div class="lb-icon">🦷</div>
+        <h2>Nueva Sonrisa</h2>
+        <p>Inicia sesión para continuar</p>
+      </div>
+
+      <!-- Role selector -->
+      <div class="rtabs">
+        <button class="rtab active" onclick="pickRole('admin', this)"><span class="ri">🛡️</span><span class="rn">Administrador</span></button>
+        <button class="rtab"        onclick="pickRole('doctor', this)"><span class="ri">🩺</span><span class="rn">Odontólogo</span></button>
+        <button class="rtab"        onclick="pickRole('paciente', this)"><span class="ri">👤</span><span class="rn">Paciente</span></button>
+      </div>
+
+      <div class="demo">Demo: Selecciona un rol y haz clic en <strong>Ingresar</strong></div>
+
+      <div class="fl"><label>Correo electrónico</label><input class="fi" id="l-em" type="email" value="admin@sonrisa.com"/></div>
+      <div class="fl"><label>Contraseña</label><input class="fi" id="l-pw" type="password" value="12345678"/></div>
+      <button class="lbtn" id="l-btn" onclick="doLogin()">Ingresar como Administrador</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     APP
+══════════════════════════════════════ -->
+<div id="pg-app">
+<div class="app">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sb">
+    <div class="sb-br">
+      <div class="sb-bi">🦷</div>
+      <span class="sb-bn">Nueva Sonrisa</span>
+    </div>
+
+    <nav class="sb-nav">
+      <div class="sb-sec">Principal</div>
+      <div class="sb-it active" data-s="s-dash"   onclick="go('s-dash', this)">  <span class="sb-ic">📊</span>Dashboard</div>
+      <div class="sb-it"        data-s="s-citas"   onclick="go('s-citas', this)"> <span class="sb-ic">📅</span>Gestión de Citas</div>
+      <div class="sb-it"        data-s="s-agenda"  onclick="go('s-agenda', this)"><span class="sb-ic">🗓️</span>Agenda Digital</div>
+
+      <div class="sb-sec">Pacientes</div>
+      <div class="sb-it"        data-s="s-pac"     onclick="go('s-pac', this)">   <span class="sb-ic">👥</span>Pacientes</div>
+
+      <div class="sb-sec">Gestión</div>
+      <div class="sb-it"        data-s="s-notif"   onclick="go('s-notif', this)"> <span class="sb-ic">🔔</span>Notificaciones<span class="sb-bg" id="nb">3</span></div>
+      <div class="sb-it"        data-s="s-asis"    onclick="go('s-asis', this)">  <span class="sb-ic">✅</span>Asistencia</div>
+      <div class="sb-it"        data-s="s-rep"     onclick="go('s-rep', this)">   <span class="sb-ic">📈</span>Reportes</div>
+      <div class="sb-it"        data-s="s-usr"     onclick="go('s-usr', this)">   <span class="sb-ic">👤</span>Usuarios</div>
+    </nav>
+
+    <div class="sb-ft">
+      <div class="sb-user">
+        <div class="sb-av" style="background:#2563eb">CM</div>
+        <div>
+          <div class="sb-un">Carlos Mendoza</div>
+          <div class="sb-ur">Administrador</div>
+        </div>
+      </div>
+      <button class="sb-lo" onclick="logout()"><span>🚪</span>Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <!-- ── Main content ── -->
+  <main class="mn">
+
+    <!-- Topbar -->
+    <header class="tb">
+      <span class="tb-g">Hola, <strong>Carlos Mendoza</strong></span>
+      <div class="tb-r">
+        <div class="tb-date">📅 Sáb 18 Abr 2026</div>
+        <div class="tb-btn" onclick="go('s-notif', document.querySelector('[data-s=s-notif]'))">
+          🔔<span class="tb-dot" id="tb-dot"></span>
+        </div>
+      </div>
+    </header>
+
+    <div class="page">
+
+      <!-- ══ DASHBOARD ══ -->
+      <section id="s-dash" class="sec active">
+        <div class="ph">
+          <div class="ph-t"><h2>Dashboard</h2><p>Resumen general — Vista administrativa</p></div>
+        </div>
+        <div class="stats">
+          <div class="sc"><div class="sc-ic ic-b">📅</div><div><div class="sc-n" id="d-hoy">4</div><div class="sc-l">Citas Hoy</div><div class="sc-ch ch-u">↑ 2 vs ayer</div></div></div>
+          <div class="sc"><div class="sc-ic ic-g">👥</div><div><div class="sc-n">8</div><div class="sc-l">Pacientes Registrados</div><div class="sc-ch ch-u">↑ 1 nuevo</div></div></div>
+          <div class="sc"><div class="sc-ic ic-o">✅</div><div><div class="sc-n" id="d-comp">0</div><div class="sc-l">Completadas hoy</div><div class="sc-ch ch-u">↑ Sem: 5</div></div></div>
+          <div class="sc"><div class="sc-ic ic-p">⏳</div><div><div class="sc-n" id="d-pend">3</div><div class="sc-l">Pendientes</div><div class="sc-ch ch-d">↓ 1 cancelada</div></div></div>
+        </div>
+        <div class="g2">
+          <div class="card">
+            <div class="ch"><span class="ct">Citas de Hoy</span><button class="btn bs btn-sm" onclick="go('s-citas', document.querySelector('[data-s=s-citas]'))">Ver todas →</button></div>
+            <div class="cb"><div id="dash-list"></div></div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="ch"><span class="ct">Acciones Rápidas</span></div>
+              <div class="cb">
+                <div class="qa">
+                  <button class="qa-b" onclick="openMo('mo-cita')"><span class="qa-ic">📅</span>Nueva Cita</button>
+                  <button class="qa-b" onclick="openMo('mo-pac')"><span class="qa-ic">👤</span>Nuevo Paciente</button>
+                  <button class="qa-b" onclick="go('s-rep', document.querySelector('[data-s=s-rep]'))"><span class="qa-ic">📊</span>Reportes</button>
+                  <button class="qa-b" onclick="go('s-notif', document.querySelector('[data-s=s-notif]'))"><span class="qa-ic">🔔</span>Notificaciones</button>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="ch"><span class="ct">Citas esta semana</span><span style="font-size:11px;color:var(--t2)">Lun — Dom</span></div>
+              <div class="cb"><div id="ch-weekly" class="chart-wrap"></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ GESTIÓN DE CITAS ══ -->
+      <section id="s-citas" class="sec">
+        <div class="ph">
+          <div class="ph-t"><h2>Gestión de Citas</h2><p>RF1 — Registrar, modificar y cancelar citas odontológicas</p></div>
+          <button class="btn bp" onclick="openMo('mo-cita')">＋ Nueva Cita</button>
+        </div>
+        <div class="card">
+          <div class="sb2">
+            <div class="siw"><span class="si-ic">🔍</span><input class="si" id="c-q" placeholder="Buscar por paciente o tratamiento..." oninput="renderCitas()"/></div>
+            <div class="fps" id="fps-citas">
+              <span class="fp active" onclick="setCFilt('todas',this)">Todas</span>
+              <span class="fp"        onclick="setCFilt('confirmed',this)">Confirmadas</span>
+              <span class="fp"        onclick="setCFilt('programmed',this)">Programadas</span>
+              <span class="fp"        onclick="setCFilt('ongoing',this)">En Curso</span>
+              <span class="fp"        onclick="setCFilt('completed',this)">Completadas</span>
+              <span class="fp"        onclick="setCFilt('cancelled',this)">Canceladas</span>
+            </div>
+          </div>
+          <div class="tw">
+            <table class="dt" id="citas-table">
+              <thead><tr><th>Fecha</th><th>Hora</th><th>Paciente</th><th>Odontólogo</th><th>Tratamiento</th><th>Estado</th><th>Acciones</th></tr></thead>
+              <tbody id="citas-tb"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ AGENDA DIGITAL ══ -->
+      <section id="s-agenda" class="sec">
+        <div class="ph"><div class="ph-t"><h2>Agenda Digital</h2><p>RF2 — Vista de citas diaria, semanal y mensual por odontólogo</p></div></div>
+        <div class="card">
+          <div class="cal-nav">
+            <button class="cal-nb" onclick="calNav(-1)">◀</button>
+            <span class="cal-lbl" id="cal-lbl">Abril 2026</span>
+            <button class="cal-nb" onclick="calNav(1)">▶</button>
+            <div class="cal-views">
+              <span class="cal-v active" onclick="setCalView('month',this)">Mes</span>
+              <span class="cal-v"        onclick="setCalView('week',this)">Semana</span>
+              <span class="cal-v"        onclick="setCalView('day',this)">Día</span>
+            </div>
+            <div class="fps cal-filter" style="margin-left:10px">
+              <span class="fp active" onclick="setCalDoc('todos',this)">Todos</span>
+              <span class="fp"        onclick="setCalDoc('2',this)">Dra. López</span>
+              <span class="fp"        onclick="setCalDoc('3',this)">Dr. Sánchez</span>
+            </div>
+          </div>
+          <div id="cal-body"></div>
+        </div>
+      </section>
+
+      <!-- ══ PACIENTES ══ -->
+      <section id="s-pac" class="sec">
+        <div class="ph">
+          <div class="ph-t"><h2>Pacientes</h2><p>RF4 — Registro y gestión de pacientes</p></div>
+          <button class="btn bp" onclick="openMo('mo-pac')">＋ Nuevo Paciente</button>
+        </div>
+        <div class="card">
+          <div class="sb2">
+            <div class="siw"><span class="si-ic">🔍</span><input class="si" id="p-q" placeholder="Buscar por nombre o DNI..." oninput="renderPac()"/></div>
+            <div class="fps" id="fps-pac">
+              <span class="fp active" onclick="setPacFilt('todos',this)">Todos</span>
+              <span class="fp"        onclick="setPacFilt('doc2',this)">Dra. López</span>
+              <span class="fp"        onclick="setPacFilt('doc3',this)">Dr. Sánchez</span>
+              <span class="fp"        onclick="setPacFilt('alg',this)">Con alergias</span>
+            </div>
+          </div>
+          <div class="pg" id="pac-grid"></div>
+        </div>
+      </section>
+
+      <!-- ══ BUSCAR PACIENTES ══ -->
+      <section id="s-buscar" class="sec">
+        <div class="ph"><div class="ph-t"><h2>Buscar Pacientes</h2><p>RF5 — Buscar por nombre o DNI y ver historial clínico</p></div></div>
+        <div class="bp-hero">
+          <div class="bp-hero-icon">🔍</div>
+          <div style="flex:1">
+            <h3>Búsqueda de Pacientes</h3>
+            <p>Ingresa el nombre completo o DNI del paciente para acceder a su historial clínico</p>
+          </div>
+          <div class="bp-siw">
+            <span class="bp-si-ic">🔍</span>
+            <input class="bp-si" id="b-q" placeholder="Nombre o DNI..." oninput="buscar()"/>
+          </div>
+        </div>
+        <div id="buscar-res"><p class="empty">Escribe para buscar un paciente...</p></div>
+      </section>
+
+      <!-- ══ NOTIFICACIONES ══ -->
+      <section id="s-notif" class="sec">
+        <div class="ph">
+          <div class="ph-t"><h2>Notificaciones</h2><p>RF3 — Recordatorios y avisos del sistema</p></div>
+          <button class="btn bs" onclick="markAll()">✓ Marcar todas leídas</button>
+        </div>
+        <div class="card"><div id="notif-list"></div></div>
+      </section>
+
+      <!-- ══ ASISTENCIA ══ -->
+      <section id="s-asis" class="sec">
+        <div class="ph"><div class="ph-t"><h2>Control de Asistencia</h2><p>RF6 — Registrar si el paciente asistió, no asistió o canceló</p></div></div>
+        <div class="card">
+          <div class="sb2">
+            <div class="fps" id="fps-asis">
+              <span class="fp active" onclick="setAFilt('all',this)">Todas</span>
+              <span class="fp"        onclick="setAFilt('attended',this)">Asistió</span>
+              <span class="fp"        onclick="setAFilt('absent',this)">No asistió</span>
+              <span class="fp"        onclick="setAFilt('pending',this)">Pendiente</span>
+            </div>
+          </div>
+          <div class="tw">
+            <table class="dt">
+              <thead><tr><th>Paciente</th><th>Fecha</th><th>Hora</th><th>Tratamiento</th><th>Odontólogo</th><th>Estado</th><th>Acción</th></tr></thead>
+              <tbody id="asis-tb"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ REPORTES ══ -->
+      <section id="s-rep" class="sec">
+        <div class="ph">
+          <div class="ph-t"><h2>Reportes y Estadísticas</h2><p>RF7 — Indicadores de gestión por día, semana y mes</p></div>
+          <button class="btn bp" onclick="toast('Reporte exportado en PDF ✓','s')">⬇ Exportar PDF</button>
+        </div>
+        <div class="stats" style="grid-template-columns:repeat(3,1fr)">
+          <div class="sc"><div class="sc-ic ic-g">✅</div><div><div class="sc-n">28</div><div class="sc-l">Citas atendidas (mes)</div></div></div>
+          <div class="sc"><div class="sc-ic ic-r">❌</div><div><div class="sc-n">4</div><div class="sc-l">Inasistencias (mes)</div></div></div>
+          <div class="sc"><div class="sc-ic ic-b">📊</div><div><div class="sc-n">88%</div><div class="sc-l">Tasa de asistencia</div></div></div>
+        </div>
+        <div class="g2">
+          <div class="card">
+            <div class="ch"><span class="ct">Citas por día — Esta semana</span></div>
+            <div class="cb"><div id="rep-w" class="chart-wrap"></div></div>
+          </div>
+          <div class="card">
+            <div class="ch"><span class="ct">Tratamientos más frecuentes</span></div>
+            <div class="cb"><div id="rep-t"></div></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:14px">
+          <div class="ch"><span class="ct">Distribución de asistencia — Mes actual</span></div>
+          <div class="cb">
+            <div class="att-bar">
+              <div style="width:80%;background:var(--ok)"></div>
+              <div style="width:11%;background:var(--err)"></div>
+              <div style="width:9%;background:var(--warn)"></div>
+            </div>
+            <div style="display:flex;gap:16px;margin-top:6px">
+              <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--t2)"><span style="width:10px;height:10px;border-radius:2px;background:var(--ok);display:inline-block"></span>Asistió 80%</span>
+              <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--t2)"><span style="width:10px;height:10px;border-radius:2px;background:var(--err);display:inline-block"></span>No asistió 11%</span>
+              <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--t2)"><span style="width:10px;height:10px;border-radius:2px;background:var(--warn);display:inline-block"></span>Cancelado 9%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ USUARIOS ══ -->
+      <section id="s-usr" class="sec">
+        <div class="ph">
+          <div class="ph-t"><h2>Gestión de Usuarios</h2><p>RF8 — Crear usuarios con roles y permisos del sistema</p></div>
+          <button class="btn bp" onclick="openMo('mo-usr')">＋ Nuevo Usuario</button>
+        </div>
+        <div class="card">
+          <div class="tw">
+            <table class="dt">
+              <thead><tr><th>Usuario</th><th>Email</th><th>Rol</th><th>Especialidad</th><th>Estado</th><th>Acciones</th></tr></thead>
+              <tbody id="usr-tb"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /page -->
+  </main>
+</div><!-- /app -->
+</div><!-- /pg-app -->
+
+
+<!-- ══════════════════════════════════════
+     MODALS
+══════════════════════════════════════ -->
+
+<!-- Nueva Cita -->
+<div class="mo" id="mo-cita">
+  <div class="mo-box">
+    <div class="mo-h"><span class="mo-title">📅 Agendar Nueva Cita</span><div class="mo-x" onclick="closeMo('mo-cita')">✕</div></div>
+    <div class="mo-g">
+      <div class="fg"><label>Paciente *</label><select class="fc" id="nc-pac"><option value="">Seleccionar...</option></select></div>
+      <div class="fg"><label>Odontólogo *</label><select class="fc" id="nc-doc"><option value="2">Dra. María López</option><option value="3">Dr. Roberto Sánchez</option></select></div>
+      <div class="fg"><label>Fecha *</label><input type="date" class="fc" id="nc-fecha"/></div>
+      <div class="fg"><label>Hora *</label><input type="time" class="fc" id="nc-hora"/></div>
+    </div>
+    <div class="fg"><label>Tratamiento</label>
+      <select class="fc" id="nc-trat">
+        <option>Limpieza dental</option><option>Ortodoncia - Control</option><option>Endodoncia</option>
+        <option>Extracción</option><option>Blanqueamiento</option><option>Radiografía</option>
+        <option>Corona dental</option><option>Revisión general</option>
+      </select>
+    </div>
+    <div class="fg"><label>Notas / observaciones</label><input type="text" class="fc" id="nc-notas" placeholder="Observaciones adicionales..."/></div>
+    <div class="mo-ft">
+      <button class="btn bs" onclick="closeMo('mo-cita')">Cancelar</button>
+      <button class="btn bp" onclick="guardarCita()">✅ Agendar Cita</button>
+    </div>
+  </div>
+</div>
+
+<!-- Gestionar cita -->
+<div class="mo" id="mo-gestionar">
+  <div class="mo-box">
+    <div class="mo-h"><span class="mo-title">⚙️ Gestionar Cita</span><div class="mo-x" onclick="closeMo('mo-gestionar')">✕</div></div>
+    <input type="hidden" id="gc-id"/>
+    <div style="background:var(--bg);border-radius:var(--r);padding:12px 14px;margin-bottom:14px" id="gc-info"></div>
+    <div class="mo-g">
+      <div class="fg"><label>Cambiar estado</label>
+        <select class="fc" id="gc-status">
+          <option value="confirmed">Confirmada</option>
+          <option value="programmed">Programada</option>
+          <option value="ongoing">En Curso</option>
+          <option value="completed">Completada</option>
+          <option value="cancelled">Cancelada</option>
+        </select>
+      </div>
+      <div class="fg"><label>Odontólogo</label><input type="text" class="fc fc-ro" id="gc-doc" readonly/></div>
+      <div class="fg"><label>Fecha</label><input type="date" class="fc" id="gc-fecha"/></div>
+      <div class="fg"><label>Hora</label><input type="time" class="fc" id="gc-hora"/></div>
+    </div>
+    <div class="fg"><label>Tratamiento realizado</label>
+      <select class="fc" id="gc-trat">
+        <option>Limpieza dental</option><option>Ortodoncia - Control</option><option>Endodoncia</option>
+        <option>Extracción</option><option>Blanqueamiento</option><option>Radiografía</option>
+        <option>Corona dental</option><option>Revisión general</option>
+      </select>
+    </div>
+    <div class="fg"><label>Diagnóstico / notas clínicas</label><textarea class="fc" id="gc-notas" placeholder="Diagnóstico, observaciones clínicas, medicamentos indicados..."></textarea></div>
+    <div class="mo-ft">
+      <button class="btn bs" onclick="closeMo('mo-gestionar')">Cancelar</button>
+      <button class="btn bpur" onclick="guardarGestion()">💾 Guardar cambios</button>
+    </div>
+  </div>
+</div>
+
+<!-- Nuevo Paciente -->
+<div class="mo" id="mo-pac">
+  <div class="mo-box">
+    <div class="mo-h"><span class="mo-title">👤 Registrar Nuevo Paciente</span><div class="mo-x" onclick="closeMo('mo-pac')">✕</div></div>
+    <div class="mo-g">
+      <div class="fg"><label>Nombre completo *</label><input type="text" class="fc" id="np-nom" placeholder="Nombre Apellido"/></div>
+      <div class="fg"><label>DNI *</label><input type="text" class="fc" id="np-dni" placeholder="12345678" maxlength="8"/></div>
+      <div class="fg"><label>Teléfono</label><input type="tel" class="fc" id="np-tel" placeholder="9XX XXX XXX"/></div>
+      <div class="fg"><label>Email</label><input type="email" class="fc" id="np-email" placeholder="correo@ejemplo.com"/></div>
+      <div class="fg"><label>Fecha de nacimiento</label><input type="date" class="fc" id="np-born"/></div>
+      <div class="fg"><label>Grupo sanguíneo</label>
+        <select class="fc" id="np-blood">
+          <option>O+</option><option>O-</option><option>A+</option><option>A-</option>
+          <option>B+</option><option>B-</option><option>AB+</option><option>AB-</option>
+        </select>
+      </div>
+      <div class="fg"><label>Género</label><select class="fc" id="np-gen"><option value="M">Masculino</option><option value="F">Femenino</option></select></div>
+      <div class="fg"><label>Alergias conocidas</label><input type="text" class="fc" id="np-alg" placeholder="Ninguna / especificar..."/></div>
+    </div>
+    <div class="fg"><label>Dirección</label><input type="text" class="fc" id="np-dir" placeholder="Av. Lima 123, Lima"/></div>
+    <div class="mo-ft">
+      <button class="btn bs" onclick="closeMo('mo-pac')">Cancelar</button>
+      <button class="btn bp" onclick="guardarPac()">✅ Registrar Paciente</button>
+    </div>
+  </div>
+</div>
+
+<!-- Historial / detalle -->
+<div class="mo" id="mo-hx">
+  <div class="mo-box" style="max-width:640px">
+    <div class="mo-h"><span class="mo-title" id="hx-title">Paciente</span><div class="mo-x" onclick="closeMo('mo-hx')">✕</div></div>
+    <div id="hx-body"></div>
+    <div class="mo-ft"><button class="btn bs" onclick="closeMo('mo-hx')">Cerrar</button></div>
+  </div>
+</div>
+
+<!-- Nuevo Usuario -->
+<div class="mo" id="mo-usr">
+  <div class="mo-box">
+    <div class="mo-h"><span class="mo-title">🔐 Nuevo Usuario del Sistema</span><div class="mo-x" onclick="closeMo('mo-usr')">✕</div></div>
+    <div class="mo-g">
+      <div class="fg"><label>Nombre completo *</label><input type="text" class="fc" id="nu-nom" placeholder="Nombre"/></div>
+      <div class="fg"><label>Email *</label><input type="email" class="fc" id="nu-em" placeholder="correo@sonrisa.com"/></div>
+      <div class="fg"><label>Rol</label>
+        <select class="fc" id="nu-rol">
+          <option value="admin">Administrador</option>
+          <option value="doctor">Odontólogo</option>
+          <option value="paciente">Paciente</option>
+        </select>
+      </div>
+      <div class="fg"><label>Contraseña temporal</label><input type="password" class="fc" id="nu-pw" placeholder="••••••••"/></div>
+    </div>
+    <div class="fg"><label>Especialidad (si es odontólogo)</label><input type="text" class="fc" id="nu-esp" placeholder="Ortodoncia, Endodoncia, Cirugía..."/></div>
+    <div class="mo-ft">
+      <button class="btn bs" onclick="closeMo('mo-usr')">Cancelar</button>
+      <button class="btn bp" onclick="guardarUsr()">✅ Crear Usuario</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div id="toasts"></div>
+
+
+<!-- ══════════════════════════════════════
+     SCRIPTS (orden importante)
+══════════════════════════════════════ -->
+<script src="js/db.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/citas.js"></script>
+<script src="js/agenda.js"></script>
+<script src="js/patients.js"></script>
+<script src="js/modules.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
