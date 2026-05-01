@@ -1,0 +1,59 @@
+/* ═══════════════════════════════════════
+   VARIABLES & RESET — Nueva Sonrisa
+═══════════════════════════════════════ */
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: #f0f4f8; color: #1a202c; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; font-size: inherit; }
+input, select, textarea { font-family: inherit; font-size: inherit; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+:root {
+  --sw: 240px;
+
+  /* Brand */
+  --pri: #2563eb;
+  --prid: #1d4ed8;
+  --pril: #eff6ff;
+  --prim: #dbeafe;
+
+  /* Sidebar */
+  --sb: #0f172a;
+  --sbh: #1e293b;
+  --sba: #1e40af;
+
+  /* Backgrounds */
+  --bg: #f0f4f8;
+  --card: #fff;
+  --brd: #e2e8f0;
+  --brdl: #f1f5f9;
+
+  /* Text */
+  --t1: #0f172a;
+  --t2: #475569;
+  --t3: #94a3b8;
+
+  /* Status colors */
+  --ok: #10b981;   --okl: #d1fae5;
+  --warn: #f59e0b; --warnl: #fef3c7;
+  --err: #ef4444;  --errl: #fee2e2;
+  --pur: #7c3aed;  --purl: #ede9fe;
+  --cyan: #0891b2; --cyanl: #cffafe;
+
+  /* Shadows */
+  --sh:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shm: 0 4px 12px rgba(0,0,0,.07);
+  --shl: 0 8px 24px rgba(0,0,0,.09);
+
+  /* Radii */
+  --r: 8px;
+  --rl: 12px;
+  --rxl: 16px;
+
+  /* Transitions */
+  --tr: all .18s ease;
+}
